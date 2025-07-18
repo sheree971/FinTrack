@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Yearly Report</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+  <style>
+    body {
+      background: linear-gradient(135deg, #e2eafc 0%, #f8fafc 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .profile-card {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(76,110,245,0.10);
+      padding: 2rem 1rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .profile-card img {
+      width: 90px;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 50%;
+      border: 3px solid #0d6efd;
+      margin-bottom: 1rem;
+    }
+    .profile-card h5 {
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+    .profile-card .text-muted {
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+    }
+    .profile-card .mb-2 {
+      font-size: 0.98rem;
+    }
+    .card {
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(76,110,245,0.10);
+      background: #fff;
+      margin-bottom: 2rem;
+    }
+    .card h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #343a40;
+      letter-spacing: 1px;
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+    .demo-table th, .demo-table td {
+      vertical-align: middle;
+      text-align: center;
+    }
+    .demo-table th {
+      background: #f1f3f6;
+      font-weight: 600;
+      color: #0d6efd;
+    }
+    .demo-table tr:hover {
+      background: #f8fafc;
+    }
+    .table-responsive {
+      margin-bottom: 2rem;
+    }
+    .chart-container {
+      background: #fff;
+      border-radius: 1.5rem;
+      box-shadow: 0 4px 24px rgba(76,110,245,0.10);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+    .chart-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #0d6efd;
+      margin-bottom: 1rem;
+      letter-spacing: 0.5px;
+      text-align: center;
+    }
+    @media (max-width: 991px) {
+      .main-row {
+        flex-direction: column !important;
+      }
+      .profile-card {
+        margin-bottom: 2rem;
+      }
+    }
+    footer {
+      border-top: 1px solid #dee2e6;
+      background: linear-gradient(90deg, #343a40 0%, #495057 100%);
+      box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+      font-size: 1.05rem;
+      letter-spacing: 1px;
+      margin-top: auto;
+      padding: 1.2rem 0 0.8rem 0;
+    }
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top mb-4">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center" href="index.html">
+      <img src="images/logo.png" alt="Logo" width="32" height="32" style="border-radius:50%;background:#fff;margin-right:8px;">
+      Expense Tracker
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="add-expense.html">Add Expense</a></li>
+        <li class="nav-item"><a class="nav-link" href="view-expense.html">View Expenses</a></li>
+        <li class="nav-item"><a class="nav-link" href="monthly-report.html">Monthly Report</a></li>
+        <li class="nav-item"><a class="nav-link active" href="yearly-report.html">Yearly Report</a></li>
+        <li class="nav-item"><a class="nav-link" href="categories.html">Categories</a></li>
+        <li class="nav-item"><a class="nav-link" href="faq.html">FAQ</a></li>
+        <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+        <li class="nav-item"><a class="nav-link" href="settings.html">Settings</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container mt-5 mb-5">
+  <div class="row main-row d-flex">
+    <!-- Profile Section (Left) -->
+    <div class="col-lg-3 col-md-12 mb-4">
+      <div class="profile-card h-100">
+        <img src="images/demo-dp.png" alt="Profile Picture">
+        <h5>John Doe</h5>
+        <div class="text-muted">Premium User</div>
+        <div class="mb-2"><i class="bi bi-envelope"></i> john.doe@email.com</div>
+        <div class="mb-2"><i class="bi bi-telephone"></i> +1 234 567 8901</div>
+        <div class="mb-2"><i class="bi bi-geo-alt"></i> Chennai, India</div>
+        <div class="mb-2"><i class="bi bi-calendar"></i> Joined Jan 2024</div>
+        <hr>
+        <div class="mb-2"><i class="bi bi-briefcase"></i> Cognizant</div>
+        <div class="mb-2"><i class="bi bi-person-badge"></i> Senior Developer</div>
+        <div class="mb-2"><i class="bi bi-cash-stack"></i> Salary: ₹1,20,000</div>
+      </div>
+    </div>
+    <!-- Table Section (Right) -->
+    <div class="col-lg-9 col-md-12 mb-4">
+      <div class="card p-4 mb-4">
+        <h1 class="mb-4">Yearly Report</h1>
+        <p class="text-center">This is the Yearly Report page with a responsive card layout and improved design.</p>
+        <div class="mb-3 text-end">
+          <button id="downloadPdfBtn" class="btn btn-primary">
+            <i class="bi bi-file-earmark-pdf"></i> Download as PDF
+          </button>
+        </div>
+        <div id="reportContent">
+          <div class="table-responsive">
+            <table class="table table-bordered demo-table align-middle">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>Month</th>
+                  <th>Food</th>
+                  <th>Transport</th>
+                  <th>Shopping</th>
+                  <th>Bills</th>
+                  <th>Entertainment</th>
+                  <th>Total</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>1</td><td>Jan</td><td>₹2,000</td><td>₹1,000</td><td>₹2,500</td><td>₹2,000</td><td>₹1,500</td><td>₹9,000</td>
+                </tr>
+                <tr>
+                  <td>2</td><td>Feb</td><td>₹2,200</td><td>₹1,200</td><td>₹2,800</td><td>₹2,100</td><td>₹1,700</td><td>₹11,000</td>
+                </tr>
+                <tr>
+                  <td>3</td><td>Mar</td><td>₹2,100</td><td>₹1,100</td><td>₹2,600</td><td>₹2,200</td><td>₹1,500</td><td>₹10,500</td>
+                </tr>
+                <tr>
+                  <td>4</td><td>Apr</td><td>₹2,500</td><td>₹1,300</td><td>₹2,900</td><td>₹2,300</td><td>₹2,000</td><td>₹12,000</td>
+                </tr>
+                <tr>
+                  <td>5</td><td>May</td><td>₹2,000</td><td>₹1,000</td><td>₹2,500</td><td>₹2,000</td><td>₹2,000</td><td>₹9,500</td>
+                </tr>
+                <tr>
+                  <td>6</td><td>Jun</td><td>₹2,800</td><td>₹1,500</td><td>₹3,000</td><td>₹2,500</td><td>₹3,200</td><td>₹13,000</td>
+                </tr>
+                <tr>
+                  <td>7</td><td>Jul</td><td>₹2,500</td><td>₹1,200</td><td>₹2,900</td><td>₹2,400</td><td>₹2,500</td><td>₹12,500</td>
+                </tr>
+                <tr>
+                  <td>8</td><td>Aug</td><td>₹3,000</td><td>₹1,400</td><td>₹3,200</td><td>₹2,600</td><td>₹3,800</td><td>₹14,000</td>
+                </tr>
+                <tr>
+                  <td>9</td><td>Sep</td><td>₹2,300</td><td>₹1,100</td><td>₹2,700</td><td>₹2,200</td><td>₹2,200</td><td>₹11,500</td>
+                </tr>
+                <tr>
+                  <td>10</td><td>Oct</td><td>₹2,000</td><td>₹1,000</td><td>₹2,500</td><td>₹2,000</td><td>₹2,500</td><td>₹10,000</td>
+                </tr>
+                <tr>
+                  <td>11</td><td>Nov</td><td>₹1,800</td><td>₹900</td><td>₹2,400</td><td>₹2,000</td><td>₹2,400</td><td>₹9,500</td>
+                </tr>
+                <tr>
+                  <td>12</td><td>Dec</td><td>₹2,200</td><td>₹1,100</td><td>₹2,700</td><td>₹2,300</td><td>₹3,700</td><td>₹12,000</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="row charts-row d-flex align-items-stretch">
+            <div class="col-lg-4 col-md-12 mb-4">
+              <div class="chart-container h-100">
+                <div class="chart-title"><i class="bi bi-pie-chart"></i> Expense Distribution</div>
+                <canvas id="pieChart" height="220"></canvas>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12 mb-4">
+              <div class="chart-container h-100">
+                <div class="chart-title"><i class="bi bi-bar-chart"></i> Monthly Expenses</div>
+                <canvas id="barChart" height="220"></canvas>
+              </div>
+            </div>
+            <div class="col-lg-4 col-md-12 mb-4">
+              <div class="chart-container h-100">
+                <div class="chart-title"><i class="bi bi-graph-up"></i> Expense Trend</div>
+                <canvas id="lineChart" height="220"></canvas>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<footer class="bg-dark text-white text-center mt-5 p-3">
+  &copy; 2025 Expense Tracker | All rights reserved
+</footer>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="js/script.js"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    // Demo data for charts
+    const pieData = {
+      labels: ['Food', 'Transport', 'Shopping', 'Bills', 'Entertainment'],
+      datasets: [{
+        data: [27000, 14000, 34000, 26000, 29000],
+        backgroundColor: [
+          '#0d6efd', '#198754', '#ffc107', '#dc3545', '#6f42c1'
+        ]
+      }]
+    };
+
+    const barData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [{
+        label: 'Monthly Expense (₹)',
+        data: [9000, 11000, 10500, 12000, 9500, 13000, 12500, 14000, 11500, 10000, 9500, 12000],
+        backgroundColor: '#0d6efd'
+      }]
+    };
+
+    const lineData = {
+      labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+      datasets: [{
+        label: 'Expense Trend (₹)',
+        data: [9000, 11000, 10500, 12000, 9500, 13000, 12500, 14000, 11500, 10000, 9500, 12000],
+        borderColor: '#198754',
+        backgroundColor: 'rgba(25,135,84,0.1)',
+        fill: true,
+        tension: 0.3,
+        pointRadius: 4,
+        pointBackgroundColor: '#198754'
+      }]
+    };
+
+    // Pie Chart
+    new Chart(document.getElementById('pieChart'), {
+      type: 'pie',
+      data: pieData,
+      options: {
+        plugins: {
+          legend: { position: 'bottom' }
+        }
+      }
+    });
+
+    // Bar Chart
+    new Chart(document.getElementById('barChart'), {
+      type: 'bar',
+      data: barData,
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        },
+        plugins: {
+          legend: { display: false }
+        }
+      }
+    });
+
+    // Line Chart
+    new Chart(document.getElementById('lineChart'), {
+      type: 'line',
+      data: lineData,
+      options: {
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+
+    // PDF Download
+    document.getElementById('downloadPdfBtn').addEventListener('click', function () {
+      const element = document.getElementById('reportContent');
+      html2pdf().set({
+        margin: 0.5,
+        filename: 'Yearly_Report.pdf',
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 2 },
+        jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+      }).from(element).save();
+    });
+  });
+</script>
+</body>
+</html>
